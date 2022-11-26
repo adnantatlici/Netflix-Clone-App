@@ -27,17 +27,17 @@ class HomeViewController: UIViewController {
         homeFeedTable.delegate = self
         homeFeedTable.dataSource = self
         
-        configureNavbar()
-        getTrendingMovies()
+        configureNavBar()
+        fetchData()
         
         let headerView = HeroHeaderUIView(frame: CGRect(x: 0, y: 0, width: view.bounds.width, height: 500))
         homeFeedTable.tableHeaderView = headerView
     }
     
-    private func configureNavbar() {
-           var image = UIImage(named: "netflix-2")
-           image = image?.withRenderingMode(.alwaysOriginal)
-           navigationItem.leftBarButtonItem = UIBarButtonItem(image: image, style: .done, target: self, action: nil)
+    private func configureNavBar() {
+          var image = UIImage(named: "netflix_logo")
+          image = image?.withRenderingMode(.alwaysOriginal)
+          navigationItem.leftBarButtonItem = UIBarButtonItem(image: image,  style: .done, target: self, action: nil)
            
         
         navigationItem.rightBarButtonItems = [ UIBarButtonItem(image: UIImage(systemName: "person"), style: .done, target: self, action: nil),
@@ -56,15 +56,32 @@ class HomeViewController: UIViewController {
     }
 
     
-    private func getTrendingMovies() {
+    
+    
+    private func fetchData() {
         
-        APICaller.shared.getTrendingMovies { results in
-            switch results {
-            case .success(let movies):
-                print(movies)
-            case .failure(let error):
-                print(error)
-            }
+        //  APICaller.shared.getTrendingMovies { results in
+        //     switch results {
+        //      case .success(let movies):
+        //         print(movies)
+        //    case .failure(let error):
+        //       print(error)
+        //    }
+        
+        
+        //APICaller.shared.getTrendingTvs { results in
+        //}
+        
+       // APICaller.shared.getUpcomingMovies { _ in
+            //
+        //}
+        
+        //  APICaller.shared.getPopular { _ in
+            //
+        //}
+        
+        APICaller.shared.getTopRated { _ in
+            //
         }
     }
     
@@ -104,7 +121,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         header.textLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         header.textLabel?.frame = CGRect(x: header.bounds.origin.x + 20, y:  header.bounds.origin.y, width: 100, height: header.bounds.height)
         header.textLabel?.textColor = .white
-        header.textLabel?.text = header.textLabel?.text?.lowercased()
+        header.textLabel?.text = header.textLabel?.text?.capitalizeFirstLetter()
     }
     
 
